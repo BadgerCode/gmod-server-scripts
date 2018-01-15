@@ -1,7 +1,13 @@
 # GMOD Server Scripts (Linux)
+This is a lightweight Garry's Mod Linux dedicated server management script. 
+
+It is intended for users with some basic Linux experience.
+
+The program **screen** is used to run the GMod server in a separate session (meaning you can log out without the server stopping).
 
 # Requirements
 1. sudo apt-get install steamcmd
+2. sudo apt-get install screen
 
 # Usage
 ```./server.sh start|stop|update|generate-config```
@@ -31,25 +37,25 @@ chmod u+x server.sh
 
 
 # Help
-## How do I configure this?
+### How do I configure this?
 Open up config.sh and look at the configuration section near the top.
 
 **Important**: Make sure to stop your server before changing config.sh.
 
-## Is my server running?
+### Is my server running?
 Use the command
 ```screen -ls```
 and look for your SERVERNAME (set in config.sh).
 
-## I can't install the steamcmd program
+### I can't install the steamcmd program
 1. https://developer.valvesoftware.com/wiki/SteamCMD
 2. Change "STEAMCMD" in config.sh to the location of your SteamCmd (e.g. "/home/me/steamcmd/steamcmd.sh")
 
-## How do I restart the server when the machine restarts?
+### How do I restart the server when the machine restarts?
 1. ```crontab -e```
 2. Add a new line at the bottom: ```@reboot /full/path/to/server.sh start```
 
-## Counter-Strike: Source isn't mounted on my server!
+### Counter-Strike: Source isn't mounted on my server!
 This script just updates/installs CSS. You have to tell the GMod server to use it.
 
 1. https://wiki.garrysmod.com/page/Mounting_Content_on_a_DS (or google "garrymod mount")
@@ -64,7 +70,7 @@ CSSMOUNTPATH="$GMODSERVERPATH/css-mount"
 Therefore, CSS files path is /home/badger/gmod-test-server/css-mount
 ```
 
-## How do I update server.sh?
+### How do I update server.sh?
 Stop the server during this.
 ```bash
 cd /path/to/my/gmod/server

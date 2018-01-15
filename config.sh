@@ -1,7 +1,8 @@
 #!/bin/bash
+# IMPORTANT: Make sure to stop your server before changing this
 
 # General config
-SERVERNAME="gmod-dev-server" # Must be unique on this machine
+SERVERNAME="gmod-dev-server" # Keep it simple (letters, numbers, -, _)
 
 
 # Server config

@@ -4,7 +4,7 @@
 1. sudo apt-get install steamcmd
 
 # Usage
-```./server.sh start|stop|update```
+```./server.sh start|stop|update|generate-config```
 
 ## First time usage
 ```bash
@@ -33,6 +33,8 @@ chmod u+x server.sh
 # Help
 ## How do I configure this?
 Open up config.sh and look at the configuration section near the top.
+
+**Important**: Make sure to stop your server before changing config.sh.
 
 ## Is my server running?
 Use the command

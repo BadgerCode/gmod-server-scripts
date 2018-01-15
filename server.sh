@@ -12,6 +12,8 @@ if [ -z $option ]; then
     exit;
 fi
 
+SCREENNAME="$SERVERNAME-$PORT-$MAXPLAYERS"
+
 
 case "$option" in
 "generate-config") echo "Creating fresh configuration file"
@@ -22,7 +24,7 @@ case "$option" in
     ARGUMENTS="-norestart -console -game garrysmod -nohltv -condebug +maxplayers $MAXPLAYERS -port $PORT +exec \"server.cfg\" +map $MAP $ADDITIONALARGUMENTS"
 
     # Stop the server if it's already running
-    screen -S $SERVERNAME -X quit
+    screen -S $SCREENNAME -X quit
 
     if [ -f $LOGFILE ]; then
         DATE=$(date +%Y-%m-%d_%H-%M-%S)
@@ -39,10 +41,10 @@ case "$option" in
 
     echo $(date +%Y-%m-%d_%H-%M-%S) > $LASTSTARTFILE
 
-    screen -dmS $SERVERNAME "$GMODSERVERPATH/srcds_run" $ARGUMENTS >> $LOGFILE &> $ERRORLOGFILE
+    screen -dmS $SCREENNAME "$GMODSERVERPATH/srcds_run" $ARGUMENTS >> $LOGFILE &> $ERRORLOGFILE
     ;;
 "stop") echo "Stopping server"
-    screen -S $SERVERNAME -X quit
+    screen -S $SCREENNAME -X quit
     ;;
 "update") echo "Updating server"
     $STEAMCMD +login anonymous +force_install_dir $GMODSERVERPATH +app_update 4020 validate +quit

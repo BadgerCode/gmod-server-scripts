@@ -7,10 +7,14 @@
 ```./server.sh start|stop|update```
 
 ## First time usage
-1. ```cd /path/to/my/gmod/server```
-2. ```curl https://raw.githubusercontent.com/BadgerCode/gmod-server-scripts/master/server.sh?$(date +%s) > server.sh```
-3. ```chmod u+x server.sh```
-4. ```./server.sh update```
+```bash
+cd /path/to/my/gmod/server
+curl https://raw.githubusercontent.com/BadgerCode/gmod-server-scripts/master/server.sh?$(date +%s) > server.sh
+chmod u+x server.sh
+./server.sh generate-config
+./server.sh update
+./server.sh start
+```
 
 ### Example GMod Server Directory
 *After installation*
@@ -28,16 +32,16 @@
 
 # Help
 ## How do I configure this?
-Open up server.sh and look at the configuration section near the top.
+Open up config.sh and look at the configuration section near the top.
 
 ## Is my server running?
 Use the command
 ```screen -ls```
-and look for your SERVERNAME (set in server.sh).
+and look for your SERVERNAME (set in config.sh).
 
 ## I can't install the steamcmd program
 1. https://developer.valvesoftware.com/wiki/SteamCMD
-2. Change "STEAMCMD" in server.sh to the location of your SteamCmd (e.g. "/home/me/steamcmd/steamcmd.sh")
+2. Change "STEAMCMD" in config.sh to the location of your SteamCmd (e.g. "/home/me/steamcmd/steamcmd.sh")
 
 ## How do I restart the server when the machine restarts?
 1. ```crontab -e```
@@ -51,7 +55,7 @@ This script just updates/installs CSS. You have to tell the GMod server to use i
 
 **Example**
 ```
-GMODSERVERPATH="/home/badger/gmod-test-server"
+Server location: "/home/badger/gmod-test-server"
 ...
 CSSMOUNTPATH="$GMODSERVERPATH/css-mount"
 
@@ -59,7 +63,9 @@ Therefore, CSS files path is /home/badger/gmod-test-server/css-mount
 ```
 
 ## How do I update server.sh?
-1. Stop the server
-2. Copy your existing server.sh
-3. Perform the first 3 steps from **First time usage** (near the top of this readme)
-4. Apply the config from the old server.sh to the new one
+Stop the server during this.
+```bash
+cd /path/to/my/gmod/server
+curl https://raw.githubusercontent.com/BadgerCode/gmod-server-scripts/master/server.sh?$(date +%s) > server.sh
+chmod u+x server.sh
+```

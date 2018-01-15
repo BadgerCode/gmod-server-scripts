@@ -3,43 +3,20 @@
 # Assumes the path to the GMod server is wherever this script is located
 GMODSERVERPATH="$( cd "$( dirname "$0" )" && pwd )"
 
-
-#---------------------------
-# CONFIG
-
-# General config
-SERVERNAME="gmod-dev-server" # Must be unique on this machine
-
-# Server config
-PORT=27015
-MAXPLAYERS=15
-MAP="gm_flatgrass"
-
-# E.g. "+host_workshop_collection 12345 +gamemode terrortown"
-ADDITIONALARGUMENTS=""
-
-# Locations
-CSSMOUNTPATH="$GMODSERVERPATH/css-mount"
-LOGFILE="$GMODSERVERPATH/garrysmod/console.log"
-ERRORLOGFILE="$GMODSERVERPATH/garrysmod/error.log"
-
-# Programs
-STEAMCMD="steamcmd"
-
-# END OF CONFIG
-#---------------------------
-
+source "config.sh"
 
 option=${1,,};
 if [ -z $option ]; then
-    echo "Pick an action: start|stop|update";
+    echo "Pick an action: start|stop|update|generate-config";
     echo "E.g. ./server.sh start";
     exit;
 fi
 
 
 case "$option" in
-
+"generate-config") echo "Creating fresh configuration file"
+    curl https://raw.githubusercontent.com/BadgerCode/gmod-server-scripts/master/config.sh?$(date +%s) > "$GMODSERVERPATH/config.sh"
+    ;;
 "start") echo "Starting server"
     LASTSTARTFILE="$GMODSERVERPATH/last_start"
     ARGUMENTS="-norestart -console -game garrysmod -nohltv -condebug +maxplayers $MAXPLAYERS -port $PORT +exec \"server.cfg\" +map $MAP $ADDITIONALARGUMENTS"
@@ -54,7 +31,10 @@ case "$option" in
         fi
 
         echo $DATE;
-        mv $LOGFILE "$GMODSERVERPATH/garrysmod/logs/$DATE.log"
+        LOGDIR="$GMODSERVERPATH/garrysmod/logs";
+
+        mkdir -p "$LOGDIR"
+        mv $LOGFILE "$LOGDIR/$DATE.log"
     fi
 
     echo $(date +%Y-%m-%d_%H-%M-%S) > $LASTSTARTFILE
